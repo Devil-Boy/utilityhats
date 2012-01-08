@@ -15,3 +15,29 @@ commands:
    utilityhat:
       description: Place a hat on your head.
       usage: /<command>
+
+permissions:
+    UtilityHats.*:
+        default: op
+        description: Can use any hat.
+        children:
+            UtilityHats.book: true
+            UtilityHats.glowstone: true
+            UtilityHats.glass: true
+            UtilityHats.spawner: true
+            UtilityHats.obsidian: true
+    UtilityHats.book:
+        default: true
+        description: Can receive the help output.
+    UtilityHats.glowstone:
+        default: true
+        description: Can wear glowstone on head.
+    UtilityHats.glass:
+        default: true
+        description: Can wear glass on head.
+    UtilityHats.spawner:
+        default: true
+        description: Can wear a spawner on head.
+    UtilityHats.obsidian:
+        default: true
+        description: Can wear obsidian on head.

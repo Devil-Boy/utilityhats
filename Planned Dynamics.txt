@@ -1,0 +1,19 @@
+Book:
+	-Gives help output
+
+Glowstone
+	-Pro: Lights up the area around you
+	-Con: Attracts mobs at a greater range
+
+Glass
+	-Pro: Can breath underwater
+	-Con: Food depletes quicker
+	-Con: Squids target you, but will not drop ink
+
+Spawner:
+	-Pro: 50% less damage from mobs that can naturally be found in spawners
+	-Con: 50% more damage from mobs that aren't found in spawners
+
+Obsidian:
+	-Pro: No damage from explosions
+	-Con: Fall damage is increased by 50%
