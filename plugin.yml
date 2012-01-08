@@ -1,5 +1,17 @@
 name: UtilityHats
-
-main: pgDev.UtilityHats.UtilityHats
-
+main: pgDev.bukkit.UtilityHats.UtilityHats
 version: 0.1
+author: PG Dev Team
+authors: [Devil Boy]
+description: More hats, more dynamics!
+
+commands:
+   hat:
+      description: Place a hat on your head.
+      usage: /<command>
+   uhat:
+      description: Place a hat on your head.
+      usage: /<command>
+   utilityhat:
+      description: Place a hat on your head.
+      usage: /<command>
