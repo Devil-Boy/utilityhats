@@ -134,24 +134,28 @@ public class UtilityHats extends JavaPlugin {
 				} else if (prospectiveHat.getType() == Material.GLOWSTONE) {
 					if (hasPermissions(player, "UtilityHats.glowstone")) {
 						setHandToHead(player.getInventory(), prospectiveHat);
+						player.sendMessage(ChatColor.GOLD + "You now have glowstone on your head.");
 					} else {
 						player.sendMessage(ChatColor.RED + "You do not have permissions to place glowstone upon your head.");
 					}
 				} else if (prospectiveHat.getType() == Material.GLASS) {
 					if (hasPermissions(player, "UtilityHats.glass")) {
 						setHandToHead(player.getInventory(), prospectiveHat);
+						player.sendMessage(ChatColor.GOLD + "You now have glass on your head.");
 					} else {
 						player.sendMessage(ChatColor.RED + "You do not have permissions to place glass upon your head.");
 					}
 				} else if (prospectiveHat.getType() == Material.MOB_SPAWNER) {
 					if (hasPermissions(player, "UtilityHats.spawner")) {
 						setHandToHead(player.getInventory(), prospectiveHat);
+						player.sendMessage(ChatColor.GOLD + "You now have a spawner on your head.");
 					} else {
 						player.sendMessage(ChatColor.RED + "You do not have permissions to place a spawner upon your head.");
 					}
 				} else if (prospectiveHat.getType() == Material.OBSIDIAN) {
 					if (hasPermissions(player, "UtilityHats.obsidian")) {
 						setHandToHead(player.getInventory(), prospectiveHat);
+						player.sendMessage(ChatColor.GOLD + "You now have obsidian on your head.");
 					} else {
 						player.sendMessage(ChatColor.RED + "You do not have permissions to place obsidian upon your head.");
 					}
@@ -168,8 +172,8 @@ public class UtilityHats extends JavaPlugin {
     // This method helps reduce repetition XD
     public void setHandToHead(PlayerInventory inv, ItemStack leHatThingie) {
 		// Place their current helmet in their inventory
-		ItemStack helmet = inv.getHelmet();
-		if (helmet != null) {
+		ItemStack helmet = inv.getArmorContents()[3]; // getHelmet() wouldn't give me non-helmet blocks
+		if (helmet != null && helmet.getType() != Material.AIR) {
 			inv.addItem(helmet);
 		}
 		
