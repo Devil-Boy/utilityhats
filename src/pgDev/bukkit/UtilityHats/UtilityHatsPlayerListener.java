@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 /**
  * Handle events for all Player related events
- * @author pgDev
+ * @author PG Dev Team (Devil Boy)
  */
 public class UtilityHatsPlayerListener extends PlayerListener {
     private final UtilityHats plugin;

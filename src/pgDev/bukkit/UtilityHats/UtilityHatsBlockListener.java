@@ -9,7 +9,7 @@ import org.bukkit.event.block.BlockPhysicsEvent;
 
 /**
  * UtilityHats block listener
- * @author pgDev
+ * @author PG Dev Team (Devil Boy)
  */
 public class UtilityHatsBlockListener extends BlockListener {
     private final UtilityHats plugin;

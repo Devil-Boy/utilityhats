@@ -13,9 +13,14 @@ import org.bukkit.plugin.PluginManager;
 
 /**
  * UtilityHats for Bukkit
- * @author pgDev
+ * @author PG Dev Team (Devil Boy)
  */
 public class UtilityHats extends JavaPlugin {
+	// File Locations
+    static String pluginMainDir = "./plugins/UtilityHats";
+    static String pluginConfigLocation = pluginMainDir + "/UtilityHats.cfg";
+    
+	// Listeners
     private final UtilityHatsPlayerListener playerListener = new UtilityHatsPlayerListener(this);
     private final UtilityHatsBlockListener blockListener = new UtilityHatsBlockListener(this);
 
