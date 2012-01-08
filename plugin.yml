@@ -1,0 +1,5 @@
+name: UtilityHats
+
+main: pgDev.UtilityHats.UtilityHats
+
+version: 0.1
