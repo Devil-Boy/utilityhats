@@ -9,6 +9,7 @@ Glass
 	-Pro: Can breath underwater
 	-Con: Food depletes quicker
 	-Con: Squids target you, but will not drop ink
+	-Con: Your hat breaks upon taking damage
 
 Spawner:
 	-Pro: 50% less damage from mobs that can naturally be found in spawners

@@ -48,6 +48,7 @@ public class UtilityHats extends JavaPlugin {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Priority.Normal, this); // Anti-drown, attract squid
         pm.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Priority.Normal, this); // Squid no-drop
+        pm.registerEvent(Event.Type.FOOD_LEVEL_CHANGE, entityListener, Priority.Normal, this); // Squid no-drop
         
         // Get permissions involved!
         setupPermissions();
@@ -123,6 +124,7 @@ public class UtilityHats extends JavaPlugin {
 								player.sendMessage(ChatColor.GREEN + "Pro: Can breath underwater");
 								player.sendMessage(ChatColor.GREEN + "Con: Food depletes quicker");
 								player.sendMessage(ChatColor.GREEN + "Con: Squids target you, but will not drop ink");
+								player.sendMessage(ChatColor.GREEN + "Con: Your hat breaks upon taking damage");
 							} else if (args[0].equalsIgnoreCase("spawner")) {
 								player.sendMessage(ChatColor.GREEN + "Pro: 50% less damage from mobs that can naturally be found in spawners");
 								player.sendMessage(ChatColor.GREEN + "Con: 50% more damage from mobs that aren't found in spawners");
