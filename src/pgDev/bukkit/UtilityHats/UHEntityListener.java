@@ -50,6 +50,7 @@ public class UHEntityListener extends EntityListener {
 				}
 	    	} else if (event.getCause() == EntityDamageEvent.DamageCause.CONTACT || event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK || event.getCause() == EntityDamageEvent.DamageCause.ENTITY_EXPLOSION || event.getCause() == EntityDamageEvent.DamageCause.PROJECTILE) {
 	    		if (diver.getInventory().getArmorContents()[3].getType() == Material.GLASS) { // break his glasses!
+	    			diver.setRemainingAir(diver.getMaximumAir());
 	    			diver.playEffect(diver.getLocation(), Effect.POTION_BREAK, 0);
 	    			diver.getInventory().setHelmet(null);
 	    		}
@@ -60,9 +61,12 @@ public class UHEntityListener extends EntityListener {
     // Don't let squids drop ink when near a diver
     public void onEntityDeath(EntityDeathEvent event) {
     	if (event.getEntity() instanceof Squid) {
-    		if (((Squid) event.getEntity()).getKiller().getInventory().getArmorContents()[3].getType() == Material.GLASS) {
-    			event.getDrops().clear();
-				event.setDroppedExp(0);
+    		Player hunter = ((Squid) event.getEntity()).getKiller();
+    		if (hunter != null) {
+    			if (hunter.getInventory().getArmorContents()[3].getType() == Material.GLASS) {
+        			event.getDrops().clear();
+    				event.setDroppedExp(0);
+        		}
     		}
     	}
     }
@@ -71,7 +75,7 @@ public class UHEntityListener extends EntityListener {
     public void onFoodLevelChange(FoodLevelChangeEvent event) {
     	if (event.getEntity() instanceof Player) {
     		Player player = (Player) event.getEntity();
-    		if (player.getInventory().getArmorContents()[3].getType() == Material.GLASS && player.getSaturation() == 0) {
+    		if (player.getInventory().getArmorContents()[3].getType() == Material.GLASS && player.getFoodLevel() > event.getFoodLevel()) {
     			event.setFoodLevel(event.getFoodLevel() - 3);
     		}
     	}

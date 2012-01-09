@@ -8,7 +8,7 @@ Glowstone
 Glass
 	-Pro: Can breath underwater
 	-Con: Food depletes quicker
-	-Con: Squids target you, but will not drop ink
+	-Con: Squids target you, but will not drop ink or exp
 	-Con: Your hat breaks upon taking damage
 
 Spawner:

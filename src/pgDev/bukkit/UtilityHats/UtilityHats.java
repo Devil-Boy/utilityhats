@@ -123,7 +123,7 @@ public class UtilityHats extends JavaPlugin {
 							} else if (args[0].equalsIgnoreCase("glass")) {
 								player.sendMessage(ChatColor.GREEN + "Pro: Can breath underwater");
 								player.sendMessage(ChatColor.GREEN + "Con: Food depletes quicker");
-								player.sendMessage(ChatColor.GREEN + "Con: Squids target you, but will not drop ink");
+								player.sendMessage(ChatColor.GREEN + "Con: Squids target you, but will not drop ink or exp");
 								player.sendMessage(ChatColor.GREEN + "Con: Your hat breaks upon taking damage");
 							} else if (args[0].equalsIgnoreCase("spawner")) {
 								player.sendMessage(ChatColor.GREEN + "Pro: 50% less damage from mobs that can naturally be found in spawners");
