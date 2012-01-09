@@ -28,13 +28,17 @@ import com.nijikokun.bukkit.Permissions.Permissions;
  * @author PG Dev Team (Devil Boy)
  */
 public class UtilityHats extends JavaPlugin {
+	// Debugh mode
+	public boolean debug = false;
+	
 	// File Locations
     static String pluginMainDir = "./plugins/UtilityHats";
     static String pluginConfigLocation = pluginMainDir + "/UtilityHats.cfg";
     
 	// Listeners
-    private final UtilityHatsPlayerListener playerListener = new UtilityHatsPlayerListener(this);
-    private final UtilityHatsBlockListener blockListener = new UtilityHatsBlockListener(this);
+    private final UHPlayerListener playerListener = new UHPlayerListener(this);
+    private final UHBlockListener blockListener = new UHBlockListener(this);
+    private final UHEntityListener entityListener = new UHEntityListener(this);
     
     // Permissions support
     static PermissionHandler Permissions;
@@ -42,7 +46,8 @@ public class UtilityHats extends JavaPlugin {
     public void onEnable() {
         // Register our events
         PluginManager pm = getServer().getPluginManager();
-       
+        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Priority.Normal, this); // Anti-drown, attract squid
+        pm.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Priority.Normal, this); // Squid no-drop
         
         // Get permissions involved!
         setupPermissions();

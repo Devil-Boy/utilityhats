@@ -11,10 +11,10 @@ import org.bukkit.event.block.BlockPhysicsEvent;
  * UtilityHats block listener
  * @author PG Dev Team (Devil Boy)
  */
-public class UtilityHatsBlockListener extends BlockListener {
+public class UHBlockListener extends BlockListener {
     private final UtilityHats plugin;
 
-    public UtilityHatsBlockListener(final UtilityHats plugin) {
+    public UHBlockListener(final UtilityHats plugin) {
         this.plugin = plugin;
     }
 }

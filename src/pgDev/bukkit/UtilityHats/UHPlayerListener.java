@@ -11,10 +11,10 @@ import org.bukkit.event.player.PlayerMoveEvent;
  * Handle events for all Player related events
  * @author PG Dev Team (Devil Boy)
  */
-public class UtilityHatsPlayerListener extends PlayerListener {
+public class UHPlayerListener extends PlayerListener {
     private final UtilityHats plugin;
 
-    public UtilityHatsPlayerListener(UtilityHats instance) {
+    public UHPlayerListener(UtilityHats instance) {
         plugin = instance;
     }
 }
