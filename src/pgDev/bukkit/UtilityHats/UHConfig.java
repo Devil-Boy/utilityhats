@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
@@ -21,18 +20,14 @@ public class UHConfig {
 	public boolean upToDate = true;
 	
 	// List of Config Options
-	boolean glowstoneLight = true;
-	boolean glassBreathe = true;
-	boolean cageProtect = true;
+	int glowHeadAlert = 6;
 	
 	public UHConfig(Properties p, final UtilityHats plugin) {
         properties = p;
         this.plugin = plugin;
         
         // Grab values here.
-        glowstoneLight = getBoolean("glowstone", true);
-        glassBreathe = getBoolean("glass", true);
-        cageProtect = getBoolean("spawner", true);
+        glowHeadAlert = getInt("glowHeadAlert", 6);
         
 	}
 	
@@ -151,6 +146,11 @@ public class UHConfig {
     		out.write("#\r\n");
     		out.write("# UtilityHats Configuration\r\n");
     		out.write("#\r\n");
+    		out.write("\r\n");
+    		out.write("# Glowing Head Monster Alert Interval\r\n");
+    		out.write("#	Here you specify the amount of time (in seconds) between each\r\n");
+    		out.write("#	check for monsters around a player with glowstone on his head.\r\n");
+    		out.write("glowHeadAlert=" + glowHeadAlert + "\r\n");
     		out.close();
     	} catch (Exception e) {
     		System.out.println(e);

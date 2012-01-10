@@ -3,12 +3,12 @@ Book:
 
 Glowstone
 	-Pro: Lights up the area around you
-	-Con: Attracts mobs at a greater range
+	-Con: Attracts mobs at a greater range and through blocks
 
 Glass
 	-Pro: Can breath underwater
 	-Con: Food depletes quicker
-	-Con: Squids target you, but will not drop ink or exp
+	-Con: Squids impede you, but will not drop ink or exp
 	-Con: Your hat breaks upon taking damage
 
 Spawner:
@@ -18,3 +18,4 @@ Spawner:
 Obsidian:
 	-Pro: No damage from explosions
 	-Con: Fall damage is increased by 50%
+	-Con: Cannot sprint

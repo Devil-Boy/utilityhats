@@ -1,22 +1,23 @@
 package pgDev.bukkit.UtilityHats;
 
 import java.io.File;
-import java.util.HashMap;
+import java.io.FileInputStream;
 import java.util.LinkedList;
+import java.util.Properties;
+
+import javax.swing.Timer;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Server;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.plugin.PluginLoader;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginManager;
 
@@ -31,6 +32,9 @@ public class UtilityHats extends JavaPlugin {
 	// Debugh mode
 	public boolean debug = false;
 	
+	// Plugin Configuration
+	UHConfig pluginSettings;
+	
 	// File Locations
     static String pluginMainDir = "./plugins/UtilityHats";
     static String pluginConfigLocation = pluginMainDir + "/UtilityHats.cfg";
@@ -44,14 +48,50 @@ public class UtilityHats extends JavaPlugin {
     static PermissionHandler Permissions;
 
     public void onEnable() {
+    	// Check for the plugin directory (create if it does not exist)
+    	File pluginDir = new File(pluginMainDir);
+		if(!pluginDir.exists()) {
+			boolean dirCreation = pluginDir.mkdirs();
+			if (dirCreation) {
+				System.out.println("New UtilityHats directory created!");
+			}
+		}
+		
+		// Load the Configuration
+    	try {
+        	Properties preSettings = new Properties();
+        	if ((new File(pluginConfigLocation)).exists()) {
+        		preSettings.load(new FileInputStream(new File(pluginConfigLocation)));
+        		pluginSettings = new UHConfig(preSettings, this);
+        		if (!pluginSettings.upToDate) {
+        			pluginSettings.createConfig();
+        			System.out.println("UtilityHats Configuration updated!");
+        		}
+        	} else {
+        		pluginSettings = new UHConfig(preSettings, this);
+        		pluginSettings.createConfig();
+        		System.out.println("UtilityHats Configuration created!");
+        	}
+        } catch (Exception e) {
+        	System.out.println("Could not load UtilityHats configuration! " + e);
+        }
+		
         // Register our events
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Priority.Normal, this); // Anti-drown, attract squid
         pm.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Priority.Normal, this); // Squid no-drop
         pm.registerEvent(Event.Type.FOOD_LEVEL_CHANGE, entityListener, Priority.Normal, this); // Squid no-drop
         
+        pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Priority.Normal, this); // Glowstone light
+        pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Priority.Normal, this); // Glow on join
+        pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Priority.Normal, this); // Unglow on leave
+        //pm.registerEvent(Event.Type.PLAYER_TOGGLE_SPRINT, playerListener, Priority.Normal, this); // Anti-sprint (does not work)
+        
         // Get permissions involved!
         setupPermissions();
+        
+        // Start our timer
+        new Timer(pluginSettings.glowHeadAlert * 1000, playerListener.mobAlert); // Mob alerter
         
         // Yo bro! We're alivez!
         PluginDescriptionFile pdfFile = this.getDescription();
@@ -119,11 +159,11 @@ public class UtilityHats extends JavaPlugin {
 						} else {
 							if (args[0].equalsIgnoreCase("glowstone")) {
 								player.sendMessage(ChatColor.GREEN + "Pro: Lights up the area around you");
-								player.sendMessage(ChatColor.GREEN + "Con: Attracts mobs at a greater range");
+								player.sendMessage(ChatColor.GREEN + "Con: Attracts mobs at a greater range and through blocks");
 							} else if (args[0].equalsIgnoreCase("glass")) {
 								player.sendMessage(ChatColor.GREEN + "Pro: Can breath underwater");
 								player.sendMessage(ChatColor.GREEN + "Con: Food depletes quicker");
-								player.sendMessage(ChatColor.GREEN + "Con: Squids target you, but will not drop ink or exp");
+								player.sendMessage(ChatColor.GREEN + "Con: Squids impede you, but will not drop ink or exp");
 								player.sendMessage(ChatColor.GREEN + "Con: Your hat breaks upon taking damage");
 							} else if (args[0].equalsIgnoreCase("spawner")) {
 								player.sendMessage(ChatColor.GREEN + "Pro: 50% less damage from mobs that can naturally be found in spawners");
@@ -131,6 +171,7 @@ public class UtilityHats extends JavaPlugin {
 							} else if (args[0].equalsIgnoreCase("obsidian")) {
 								player.sendMessage(ChatColor.GREEN + "Pro: No damage from explosions");
 								player.sendMessage(ChatColor.GREEN + "Con: Fall damage is increased by 50%");
+								player.sendMessage(ChatColor.GREEN + "Con: Cannot sprint");
 							} else {
 								player.sendMessage(ChatColor.RED + "The hat type you specified was not recognized.");
 							}

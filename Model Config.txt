@@ -1,3 +1,8 @@
 #
 # UtilityHats Configuration
 #
+
+# Glowing Head Monster Alert Interval
+#	Here you specify the amount of time (in seconds) between each
+#	check for monsters around a player with glowstone on his head.
+glowHeadAlert=6
