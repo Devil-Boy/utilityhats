@@ -1,11 +1,11 @@
 Book:
 	-Gives help output
 
-Glowstone
+Glowstone:
 	-Pro: Lights up the area around you
 	-Con: Attracts mobs at a greater range and through blocks
 
-Glass
+Glass:
 	-Pro: Can breath underwater
 	-Con: Food depletes quicker
 	-Con: Squids impede you, but will not drop ink or exp
