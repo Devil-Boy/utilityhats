@@ -166,11 +166,11 @@ public class UtilityHats extends JavaPlugin {
 								player.sendMessage(ChatColor.GREEN + "Con: Squids impede you, but will not drop ink or exp");
 								player.sendMessage(ChatColor.GREEN + "Con: Your hat breaks upon taking damage");
 							} else if (args[0].equalsIgnoreCase("spawner")) {
-								player.sendMessage(ChatColor.GREEN + "Pro: 50% less damage from mobs that can naturally be found in spawners");
-								player.sendMessage(ChatColor.GREEN + "Con: 50% more damage from mobs that aren't found in spawners");
+								player.sendMessage(ChatColor.GREEN + "Pro: 2x less damage from mobs that can naturally be found in spawners");
+								player.sendMessage(ChatColor.GREEN + "Con: 2x more damage from mobs that aren't found in spawners");
 							} else if (args[0].equalsIgnoreCase("obsidian")) {
 								player.sendMessage(ChatColor.GREEN + "Pro: No damage from explosions");
-								player.sendMessage(ChatColor.GREEN + "Con: Fall damage is increased by 50%");
+								player.sendMessage(ChatColor.GREEN + "Con: Fall damage is increased by 2x");
 								player.sendMessage(ChatColor.GREEN + "Con: Cannot sprint");
 							} else {
 								player.sendMessage(ChatColor.RED + "The hat type you specified was not recognized.");

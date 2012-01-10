@@ -12,10 +12,10 @@ Glass:
 	-Con: Your hat breaks upon taking damage
 
 Spawner:
-	-Pro: 50% less damage from mobs that can naturally be found in spawners
-	-Con: 50% more damage from mobs that aren't found in spawners
+	-Pro: 2x less damage from mobs that can naturally be found in spawners
+	-Con: 2x more damage from mobs that aren't found in spawners
 
 Obsidian:
 	-Pro: No damage from explosions
-	-Con: Fall damage is increased by 50%
+	-Con: Fall damage is increased by 2x
 	-Con: Cannot sprint
