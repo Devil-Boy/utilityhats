@@ -22,6 +22,7 @@ public class UHConfig {
 	// List of Config Options
 	int glowHeadAlert = 6;
 	int tntRadius = 5;
+	int glowPower = 15;
 	
 	public UHConfig(Properties p, final UtilityHats plugin) {
         properties = p;
@@ -30,6 +31,7 @@ public class UHConfig {
         // Grab values here.
         glowHeadAlert = getInt("glowHeadAlert", 6);
         tntRadius = getInt("tntRadius", 5);
+        glowPower = getInt("glowPower", 15);
         
 	}
 	
@@ -158,6 +160,11 @@ public class UHConfig {
     		out.write("#	This is pretty much the power of the tnt hat explosions.\r\n");
     		out.write("#	Creeper = 3, TNT = 4, Super Creeper = 5\r\n");
     		out.write("tntRadius=" + tntRadius + "\r\n");
+    		out.write("\r\n");
+    		out.write("# Glow Hat Strength\r\n");
+    		out.write("#	You can set the light level of the glowstone on people's\r\n");
+    		out.write("#	heads. 15 is known to be the maximum.\r\n");
+    		out.write("glowPower=" + glowPower + "\r\n");
     		out.close();
     	} catch (Exception e) {
     		System.out.println(e);

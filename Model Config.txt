@@ -11,3 +11,8 @@ glowHeadAlert=6
 #	This is pretty much the power of the tnt hat explosions.
 #	Creeper = 3, TNT = 4, Super Creeper = 5
 tntRadius=5
+
+# Glow Hat Strength
+#	You can set the light level of the glowstone on people's
+#	heads. 15 is known to be the maximum.
+glowPower=15
