@@ -19,3 +19,8 @@ Obsidian:
 	-Pro: No damage from explosions
 	-Con: Fall damage is increased by 2x
 	-Con: Cannot sprint
+
+TNT:
+	-Pro: Explode upon taking any damage
+	-Pro: Explosion is as powerful as that of a charged creeper
+	-Con: Removing hat from head will deplete all food

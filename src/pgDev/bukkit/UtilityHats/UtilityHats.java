@@ -40,9 +40,9 @@ public class UtilityHats extends JavaPlugin {
     static String pluginConfigLocation = pluginMainDir + "/UtilityHats.cfg";
     
 	// Listeners
-    private final UHPlayerListener playerListener = new UHPlayerListener(this);
-    private final UHBlockListener blockListener = new UHBlockListener(this);
-    private final UHEntityListener entityListener = new UHEntityListener(this);
+    final UHPlayerListener playerListener = new UHPlayerListener(this);
+    final UHBlockListener blockListener = new UHBlockListener(this);
+    final UHEntityListener entityListener = new UHEntityListener(this);
     
     // Permissions support
     static PermissionHandler Permissions;
@@ -147,6 +147,9 @@ public class UtilityHats extends JavaPlugin {
 							if (hasPermissions(player, "UtilityHats.obsidian")) {
 								availableTypes.add("obsidian");
 							}
+							if (hasPermissions(player, "UtilityHats.tnt")) {
+								availableTypes.add("tnt");
+							}
 							String returnList = "";
 							for (String type : availableTypes) {
 								if (returnList.equals("")) {
@@ -172,6 +175,10 @@ public class UtilityHats extends JavaPlugin {
 								player.sendMessage(ChatColor.GREEN + "Pro: No damage from explosions");
 								player.sendMessage(ChatColor.GREEN + "Con: Fall damage is increased by 2x");
 								player.sendMessage(ChatColor.GREEN + "Con: Cannot sprint");
+							} else if (args[0].equalsIgnoreCase("tnt")) {
+								player.sendMessage(ChatColor.GREEN + "Pro: Explode upon taking any damage");
+								player.sendMessage(ChatColor.GREEN + "Pro: Explosion is as powerful as that of a charged creeper");
+								player.sendMessage(ChatColor.GREEN + "Con: Removing hat from head will deplete all food");
 							} else {
 								player.sendMessage(ChatColor.RED + "The hat type you specified was not recognized.");
 							}
@@ -206,6 +213,14 @@ public class UtilityHats extends JavaPlugin {
 						player.sendMessage(ChatColor.GOLD + "You now have obsidian on your head.");
 					} else {
 						player.sendMessage(ChatColor.RED + "You do not have permissions to place obsidian upon your head.");
+					}
+				} else if (prospectiveHat.getType() == Material.TNT) {
+					if (hasPermissions(player, "UtilityHats.tnt")) {
+						setHandToHead(player.getInventory(), prospectiveHat);
+						playerListener.tntHeads.add(player.getName());
+						player.sendMessage(ChatColor.GOLD + "You now have tnt on your head.");
+					} else {
+						player.sendMessage(ChatColor.RED + "You do not have permissions to place tnt upon your head.");
 					}
 				} else {
 					player.sendMessage(ChatColor.RED + "That block is not to be used as a hat.");

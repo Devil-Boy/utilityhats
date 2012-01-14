@@ -6,3 +6,8 @@
 #	Here you specify the amount of time (in seconds) between each
 #	check for monsters around a player with glowstone on his head.
 glowHeadAlert=6
+
+# TNT Explosion Radius
+#	This is pretty much the power of the tnt hat explosions.
+#	Creeper = 3, TNT = 4, Super Creeper = 5
+tntRadius=5

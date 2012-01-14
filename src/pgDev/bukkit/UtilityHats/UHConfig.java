@@ -21,6 +21,7 @@ public class UHConfig {
 	
 	// List of Config Options
 	int glowHeadAlert = 6;
+	int tntRadius = 5;
 	
 	public UHConfig(Properties p, final UtilityHats plugin) {
         properties = p;
@@ -28,6 +29,7 @@ public class UHConfig {
         
         // Grab values here.
         glowHeadAlert = getInt("glowHeadAlert", 6);
+        tntRadius = getInt("tntRadius", 5);
         
 	}
 	
@@ -151,6 +153,11 @@ public class UHConfig {
     		out.write("#	Here you specify the amount of time (in seconds) between each\r\n");
     		out.write("#	check for monsters around a player with glowstone on his head.\r\n");
     		out.write("glowHeadAlert=" + glowHeadAlert + "\r\n");
+    		out.write("\r\n");
+    		out.write("# TNT Explosion Radius\r\n");
+    		out.write("#	This is pretty much the power of the tnt hat explosions.\r\n");
+    		out.write("#	Creeper = 3, TNT = 4, Super Creeper = 5\r\n");
+    		out.write("tntRadius=" + tntRadius + "\r\n");
     		out.close();
     	} catch (Exception e) {
     		System.out.println(e);

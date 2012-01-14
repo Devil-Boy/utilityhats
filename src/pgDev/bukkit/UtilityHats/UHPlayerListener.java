@@ -21,6 +21,7 @@ public class UHPlayerListener extends PlayerListener {
     private final UtilityHats plugin;
     
     LinkedList<String> lightHeads = new LinkedList<String>();
+    LinkedList<String> tntHeads = new LinkedList<String>();
 
     public UHPlayerListener(UtilityHats instance) {
         plugin = instance;
@@ -43,6 +44,10 @@ public class UHPlayerListener extends PlayerListener {
         		if (!lightHeads.contains(event.getPlayer().getName())) {
         			lightHeads.add(event.getPlayer().getName());
         		}
+    		} else if (event.getPlayer().getInventory().getArmorContents()[3].getType() == Material.TNT) {
+    			if (!tntHeads.contains(event.getPlayer().getName())) {
+        			tntHeads.add(event.getPlayer().getName());
+        		}
         	} else {
         		// Light area check
         		if (lightHeads.contains(event.getPlayer().getName())) {
@@ -56,6 +61,15 @@ public class UHPlayerListener extends PlayerListener {
         		// Sprint check
         		if (event.getPlayer().getInventory().getArmorContents()[3].getType() == Material.OBSIDIAN && event.getPlayer().isSprinting()) { // no sprinting fatty
         			event.getPlayer().setSprinting(false);
+        		}
+        		
+        		// TNT Check
+        		if (tntHeads.contains(event.getPlayer().getName())) {
+        			// take his food!
+        			event.getPlayer().setFoodLevel(0);
+            		
+            		// remove from database
+            		lightHeads.remove(event.getPlayer().getName());
         		}
         	}
     	}
