@@ -90,6 +90,10 @@ public class UHEntityListener extends EntityListener {
 		    		if (diver.getInventory().getArmorContents()[3].getType() == Material.OBSIDIAN) { // heavy fall :O
 		    			event.setDamage(event.getDamage() * 2);
 		    		}
+		    	} else if (event.getCause() == EntityDamageEvent.DamageCause.FIRE) {
+		    		if (diver.getInventory().getArmorContents()[3].getType() == Material.ICE) { // firefight!
+		    			
+		    		}
 		    	}
 			}
     	}

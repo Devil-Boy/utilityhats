@@ -150,6 +150,9 @@ public class UtilityHats extends JavaPlugin {
 							if (hasPermissions(player, "UtilityHats.tnt")) {
 								availableTypes.add("tnt");
 							}
+							if (hasPermissions(player, "UtilityHats.ice")) {
+								availableTypes.add("ice");
+							}
 							String returnList = "";
 							for (String type : availableTypes) {
 								if (returnList.equals("")) {
@@ -179,6 +182,9 @@ public class UtilityHats extends JavaPlugin {
 								player.sendMessage(ChatColor.GREEN + "Pro: Explode upon taking any damage");
 								player.sendMessage(ChatColor.GREEN + "Pro: Explosion is as powerful as that of a charged creeper");
 								player.sendMessage(ChatColor.GREEN + "Con: Removing hat from head will deplete all food");
+							} else if (args[0].equalsIgnoreCase("ice")) {
+								player.sendMessage(ChatColor.GREEN + "Pro: Direct exposure to fire or lava melts ice");
+								player.sendMessage(ChatColor.GREEN + "Con: Sneaking will not prevent falling off of blocks");
 							} else {
 								player.sendMessage(ChatColor.RED + "The hat type you specified was not recognized.");
 							}
@@ -221,6 +227,13 @@ public class UtilityHats extends JavaPlugin {
 						player.sendMessage(ChatColor.GOLD + "You now have tnt on your head.");
 					} else {
 						player.sendMessage(ChatColor.RED + "You do not have permissions to place tnt upon your head.");
+					}
+				} else if (prospectiveHat.getType() == Material.ICE) {
+					if (hasPermissions(player, "UtilityHats.ice")) {
+						setHandToHead(player.getInventory(), prospectiveHat);
+						player.sendMessage(ChatColor.GOLD + "You now have ice on your head.");
+					} else {
+						player.sendMessage(ChatColor.RED + "You do not have permissions to place ice upon your head.");
 					}
 				} else {
 					player.sendMessage(ChatColor.RED + "That block is not to be used as a hat.");
