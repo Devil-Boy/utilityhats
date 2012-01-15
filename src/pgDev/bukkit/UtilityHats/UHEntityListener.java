@@ -1,7 +1,10 @@
 package pgDev.bukkit.UtilityHats;
 
+import javax.swing.Timer;
+
 import org.bukkit.Effect;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.*;
 import org.bukkit.inventory.ItemStack;
@@ -90,9 +93,21 @@ public class UHEntityListener extends EntityListener {
 		    		if (diver.getInventory().getArmorContents()[3].getType() == Material.OBSIDIAN) { // heavy fall :O
 		    			event.setDamage(event.getDamage() * 2);
 		    		}
-		    	} else if (event.getCause() == EntityDamageEvent.DamageCause.FIRE) {
+		    	} else if (event.getCause() == EntityDamageEvent.DamageCause.FIRE || event.getCause() == EntityDamageEvent.DamageCause.FIRE_TICK) {
 		    		if (diver.getInventory().getArmorContents()[3].getType() == Material.ICE) { // firefight!
-		    			
+		    			Block positionBlock = diver.getLocation().getBlock();
+		    			if (positionBlock.getType() == Material.AIR || positionBlock.getType() == Material.FIRE || positionBlock.getType() == Material.LAVA || positionBlock.getType() == Material.STATIONARY_LAVA)  {
+		    				// turn his spot into water
+		    				positionBlock.setType(Material.WATER);
+		    				
+		    				// start a tiny timer
+		    				Timer vapors = new Timer(1000, new WaterVaporizer(positionBlock));
+		    				vapors.setRepeats(false);
+		    				vapors.start();
+		    				
+		    				// remove hat from head
+		    				diver.getInventory().setHelmet(null);
+		    			}
 		    		}
 		    	}
 			}

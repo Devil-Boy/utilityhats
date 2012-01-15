@@ -29,6 +29,7 @@ public class UHPlayerListener extends PlayerListener {
     
     public void onPlayerMove(PlayerMoveEvent event) {
     	if (!event.getFrom().getBlock().getLocation().equals(event.getTo().getBlock().getLocation())) {
+    		// Glow stuff
     		if (event.getPlayer().getInventory().getArmorContents()[3].getType() == Material.GLOWSTONE) { // light the way!
         		if (plugin.debug) {
         			System.out.println(event.getPlayer().getName() + " is running around with glowstone on his head!");
@@ -44,34 +45,33 @@ public class UHPlayerListener extends PlayerListener {
         		if (!lightHeads.contains(event.getPlayer().getName())) {
         			lightHeads.add(event.getPlayer().getName());
         		}
-    		} else if (event.getPlayer().getInventory().getArmorContents()[3].getType() == Material.TNT) {
+    		} else if (lightHeads.contains(event.getPlayer().getName())) { // Light area check
+    			// first remove any old light area
+        		removeOldLight(event.getFrom());
+        		
+        		// remove from database
+        		lightHeads.remove(event.getPlayer().getName());
+    		}
+    			
+    		// TNT Stuff	
+    		if (event.getPlayer().getInventory().getArmorContents()[3].getType() == Material.TNT) {
     			if (!tntHeads.contains(event.getPlayer().getName())) {
         			tntHeads.add(event.getPlayer().getName());
         		}
-        	} else {
-        		// Light area check
-        		if (lightHeads.contains(event.getPlayer().getName())) {
-        			// first remove any old light area
-            		removeOldLight(event.getFrom());
-            		
-            		// remove from database
-            		lightHeads.remove(event.getPlayer().getName());
-        		}
+        	} else if (tntHeads.contains(event.getPlayer().getName())) {
+    			// take his food!
+    			event.getPlayer().setFoodLevel(0);
         		
-        		// Sprint check
-        		if (event.getPlayer().getInventory().getArmorContents()[3].getType() == Material.OBSIDIAN && event.getPlayer().isSprinting()) { // no sprinting fatty
-        			event.getPlayer().setSprinting(false);
-        		}
-        		
-        		// TNT Check
-        		if (tntHeads.contains(event.getPlayer().getName())) {
-        			// take his food!
-        			event.getPlayer().setFoodLevel(0);
-            		
-            		// remove from database
-            		lightHeads.remove(event.getPlayer().getName());
-        		}
+        		// remove from database
+        		lightHeads.remove(event.getPlayer().getName());
         	}
+    		
+    		// Movement checks
+    		if (event.getPlayer().getInventory().getArmorContents()[3].getType() == Material.OBSIDIAN && event.getPlayer().isSprinting()) { // no sprinting fatty
+    			event.getPlayer().setSprinting(false);
+    		} else if (event.getPlayer().getInventory().getArmorContents()[3].getType() == Material.ICE && event.getPlayer().isSneaking()) { // you shall slide~
+    			event.getPlayer().setSneaking(false);
+    		}
     	}
     }
     
