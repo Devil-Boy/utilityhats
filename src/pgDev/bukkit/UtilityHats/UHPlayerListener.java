@@ -12,6 +12,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.*;
 import org.bukkit.event.player.*;
 
+import org.bukkit.block.Biome;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.CraftWorld;
 
@@ -24,6 +26,7 @@ public class UHPlayerListener extends PlayerListener {
     
     LinkedList<String> lightHeads = new LinkedList<String>();
     LinkedList<String> tntHeads = new LinkedList<String>();
+    //LinkedList<Block>
 
     public UHPlayerListener(UtilityHats instance) {
         plugin = instance;
@@ -68,13 +71,36 @@ public class UHPlayerListener extends PlayerListener {
         		lightHeads.remove(event.getPlayer().getName());
         	}
     		
+    		// Ice Stuff	
+    		if (event.getPlayer().getInventory().getArmorContents()[3].getType() == Material.ICE) {
+    			// in water?
+    			Block inBlock = event.getTo().getBlock();
+    			if (inBlock.getType() == Material.STATIONARY_WATER) {
+    				event.setTo(locationDirect(inBlock.getRelative(BlockFace.UP).getLocation(), event.getTo()));
+    			}
+    			
+    			// in front
+    			Block belowBlockTo = event.getTo().getBlock().getRelative(BlockFace.DOWN);
+    			if (plugin.debug) {
+    				System.out.println(event.getPlayer().getName() + " is running on to " + belowBlockTo.getType().toString());
+    			}
+    			if (belowBlockTo.getType() == Material.STATIONARY_WATER) { // freeze mister >_>
+    				belowBlockTo.setType(Material.ICE);
+    			}
+    			
+    			// behind
+    			Block belowBlockFrom = event.getFrom().getBlock().getRelative(BlockFace.DOWN);
+    			if (belowBlockFrom.getType() == Material.ICE && !(belowBlockFrom.getBiome() == Biome.FROZEN_OCEAN ||
+    					belowBlockFrom.getBiome() == Biome.FROZEN_RIVER || belowBlockFrom.getBiome() == Biome.ICE_DESERT ||
+    						belowBlockFrom.getBiome() == Biome.ICE_MOUNTAINS || belowBlockFrom.getBiome() == Biome.ICE_PLAINS ||
+    							belowBlockFrom.getBiome() == Biome.TAIGA || belowBlockFrom.getBiome() == Biome.TUNDRA)) { // unfreeze
+    				belowBlockFrom .setType(Material.WATER);
+    			}
+    		}
+    		
     		// Movement checks
     		if (event.getPlayer().getInventory().getArmorContents()[3].getType() == Material.OBSIDIAN && event.getPlayer().isSprinting()) { // no sprinting fatty
     			event.getPlayer().setSprinting(false);
-    		} else if (event.getPlayer().getInventory().getArmorContents()[3].getType() == Material.ICE && event.getPlayer().isSneaking() && isIntangible(event.getTo().getBlock().getRelative(BlockFace.DOWN).getType())) { // you shall slide~
-    			System.out.println("Icehead " + event.getPlayer().getName() + " is sneaking over an edge!");
-    			event.getPlayer().setVelocity(event.getPlayer().getVelocity().multiply(2));
-    			event.getPlayer().teleport(event.getTo());
     		}
     	}
     }
@@ -104,6 +130,7 @@ public class UHPlayerListener extends PlayerListener {
     	if (event.isSneaking()) {
     		Player tnter = event.getPlayer();
     		if (tnter.getInventory().getArmorContents()[3].getType() == Material.TNT) {
+    			event.setCancelled(true);
     			tnter.playEffect(event.getPlayer().getLocation(), Effect.GHAST_SHRIEK, 0);
     			for (Entity localPeeps : tnter.getNearbyEntities(32, 32, 32)) {
     				if (localPeeps instanceof Player) {
@@ -169,6 +196,11 @@ public class UHPlayerListener extends PlayerListener {
     	} else {
     		return false;
     	}
+    }
+    
+    // Location direction
+    public Location locationDirect(Location local, Location dir) {
+    	return new Location(local.getWorld(), dir.getX(), local.getY(), dir.getZ(), dir.getYaw(), dir.getPitch());
     }
 }
 

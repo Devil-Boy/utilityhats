@@ -183,11 +183,11 @@ public class UtilityHats extends JavaPlugin {
 								player.sendMessage(ChatColor.GREEN + "Pro: Explode upon taking any damage");
 								player.sendMessage(ChatColor.GREEN + "Pro: Explosion is as powerful as that of a charged creeper");
 								player.sendMessage(ChatColor.GREEN + "Con: Removing hat from head will deplete all food");
-								player.sendMessage(ChatColor.GREEN + "Con: Sneaking makes you shriek");
+								player.sendMessage(ChatColor.GREEN + "Con: Trying to sneak reveals your location");
 							} else if (args[0].equalsIgnoreCase("ice")) {
-								player.sendMessage(ChatColor.GREEN + "Pro: Water walked over temporarily turn to ice");
-								player.sendMessage(ChatColor.GREEN + "Con: Direct exposure to fire or lava melts ice");
+								player.sendMessage(ChatColor.GREEN + "Pro: Water source blocks walked over temporarily turn to ice");
 								player.sendMessage(ChatColor.GREEN + "Con: Any damage melts your ice");
+								player.sendMessage(ChatColor.GREEN + "Con: Walking over oceans reduces food faster");
 							} else {
 								player.sendMessage(ChatColor.RED + "The hat type you specified was not recognized.");
 							}

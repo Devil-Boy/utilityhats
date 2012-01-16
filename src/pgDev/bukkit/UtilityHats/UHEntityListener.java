@@ -4,6 +4,7 @@ import javax.swing.Timer;
 
 import org.bukkit.Effect;
 import org.bukkit.Material;
+import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.*;
@@ -33,6 +34,26 @@ public class UHEntityListener extends EntityListener {
 					plugin.playerListener.tntHeads.remove(diver.getName());
 				}
 				diver.getWorld().createExplosion(diver.getLocation(), plugin.pluginSettings.tntRadius);
+			} else if (diver.getInventory().getArmorContents()[3].getType() == Material.ICE) {
+				Block positionBlock = diver.getLocation().getBlock();
+    			// turn his spot into water
+				positionBlock.setType(Material.WATER);
+				
+				// start a tiny timer
+				Timer vapors = new Timer(1000, new WaterVaporizer(positionBlock));
+				vapors.setRepeats(false);
+				vapors.start();
+				
+				// play break sound
+				diver.playEffect(diver.getLocation(), Effect.POTION_BREAK, 0);
+    			for (Entity localPeeps : diver.getNearbyEntities(32, 32, 32)) {
+    				if (localPeeps instanceof Player) {
+    					((Player) localPeeps).playEffect(diver.getLocation(), Effect.POTION_BREAK, 0);
+    				}
+    			}
+				
+				// remove hat from head
+				diver.getInventory().setHelmet(null);
 			} else {
 				if (event.getCause() == EntityDamageEvent.DamageCause.DROWNING) { // Stop drowning in suit and attract squids
 					if (plugin.debug) {
@@ -93,22 +114,6 @@ public class UHEntityListener extends EntityListener {
 		    		if (diver.getInventory().getArmorContents()[3].getType() == Material.OBSIDIAN) { // heavy fall :O
 		    			event.setDamage(event.getDamage() * 2);
 		    		}
-		    	} else if (event.getCause() == EntityDamageEvent.DamageCause.FIRE || event.getCause() == EntityDamageEvent.DamageCause.FIRE_TICK) {
-		    		if (diver.getInventory().getArmorContents()[3].getType() == Material.ICE) { // firefight!
-		    			Block positionBlock = diver.getLocation().getBlock();
-		    			if (positionBlock.getType() == Material.AIR || positionBlock.getType() == Material.FIRE || positionBlock.getType() == Material.LAVA || positionBlock.getType() == Material.STATIONARY_LAVA)  {
-		    				// turn his spot into water
-		    				positionBlock.setType(Material.WATER);
-		    				
-		    				// start a tiny timer
-		    				Timer vapors = new Timer(1000, new WaterVaporizer(positionBlock));
-		    				vapors.setRepeats(false);
-		    				vapors.start();
-		    				
-		    				// remove hat from head
-		    				diver.getInventory().setHelmet(null);
-		    			}
-		    		}
 		    	}
 			}
     	}
@@ -132,6 +137,8 @@ public class UHEntityListener extends EntityListener {
     	if (event.getEntity() instanceof Player) {
     		Player player = (Player) event.getEntity();
     		if (player.getInventory().getArmorContents()[3].getType() == Material.GLASS && player.getFoodLevel() > event.getFoodLevel()) {
+    			event.setFoodLevel(event.getFoodLevel() - 3);
+    		} else if (player.getInventory().getArmorContents()[3].getType() == Material.ICE && player.getFoodLevel() > event.getFoodLevel() && player.getLocation().getBlock().getBiome() == Biome.OCEAN) {
     			event.setFoodLevel(event.getFoodLevel() - 3);
     		}
     	}
