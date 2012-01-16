@@ -86,6 +86,7 @@ public class UtilityHats extends JavaPlugin {
         pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Priority.Normal, this); // Glow on join
         pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Priority.Normal, this); // Unglow on leave
         //pm.registerEvent(Event.Type.PLAYER_TOGGLE_SPRINT, playerListener, Priority.Normal, this); // Anti-sprint (does not work)
+        pm.registerEvent(Event.Type.PLAYER_TOGGLE_SNEAK, playerListener, Priority.Normal, this); // Scream on sneak
         
         // Get permissions involved!
         setupPermissions();
@@ -182,9 +183,11 @@ public class UtilityHats extends JavaPlugin {
 								player.sendMessage(ChatColor.GREEN + "Pro: Explode upon taking any damage");
 								player.sendMessage(ChatColor.GREEN + "Pro: Explosion is as powerful as that of a charged creeper");
 								player.sendMessage(ChatColor.GREEN + "Con: Removing hat from head will deplete all food");
+								player.sendMessage(ChatColor.GREEN + "Con: Sneaking makes you shriek");
 							} else if (args[0].equalsIgnoreCase("ice")) {
-								player.sendMessage(ChatColor.GREEN + "Pro: Direct exposure to fire or lava melts ice");
-								player.sendMessage(ChatColor.GREEN + "Con: Sneaking will not prevent falling off of blocks");
+								player.sendMessage(ChatColor.GREEN + "Pro: Water walked over temporarily turn to ice");
+								player.sendMessage(ChatColor.GREEN + "Con: Direct exposure to fire or lava melts ice");
+								player.sendMessage(ChatColor.GREEN + "Con: Any damage melts your ice");
 							} else {
 								player.sendMessage(ChatColor.RED + "The hat type you specified was not recognized.");
 							}

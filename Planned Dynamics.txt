@@ -24,7 +24,9 @@ TNT:
 	-Pro: Explode upon taking any damage
 	-Pro: Explosion is as powerful as that of a charged creeper
 	-Con: Removing hat from head will deplete all food
+	-Con: Sneaking makes you shriek
 
 Ice:
-	-Pro: Direct exposure to fire or lava melts ice
-	-Con: Sneaking will not prevent falling off of blocks
+	-Pro: Water walked over temporarily turn to ice
+	-Con: Direct exposure to fire or lava melts ice
+	-Con: Any damage melts your ice

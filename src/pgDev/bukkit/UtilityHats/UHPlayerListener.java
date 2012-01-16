@@ -6,11 +6,13 @@ import java.util.LinkedList;
 
 import net.minecraft.server.EnumSkyBlock;
 
+import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
 import org.bukkit.event.player.*;
 
+import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.CraftWorld;
 
 /**
@@ -69,8 +71,10 @@ public class UHPlayerListener extends PlayerListener {
     		// Movement checks
     		if (event.getPlayer().getInventory().getArmorContents()[3].getType() == Material.OBSIDIAN && event.getPlayer().isSprinting()) { // no sprinting fatty
     			event.getPlayer().setSprinting(false);
-    		} else if (event.getPlayer().getInventory().getArmorContents()[3].getType() == Material.ICE && event.getPlayer().isSneaking()) { // you shall slide~
-    			event.getPlayer().setSneaking(false);
+    		} else if (event.getPlayer().getInventory().getArmorContents()[3].getType() == Material.ICE && event.getPlayer().isSneaking() && isIntangible(event.getTo().getBlock().getRelative(BlockFace.DOWN).getType())) { // you shall slide~
+    			System.out.println("Icehead " + event.getPlayer().getName() + " is sneaking over an edge!");
+    			event.getPlayer().setVelocity(event.getPlayer().getVelocity().multiply(2));
+    			event.getPlayer().teleport(event.getTo());
     		}
     	}
     }
@@ -94,6 +98,20 @@ public class UHPlayerListener extends PlayerListener {
     		// remove from database
     		lightHeads.remove(event.getPlayer().getName());
 		}
+    }
+    
+    public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
+    	if (event.isSneaking()) {
+    		Player tnter = event.getPlayer();
+    		if (tnter.getInventory().getArmorContents()[3].getType() == Material.TNT) {
+    			tnter.playEffect(event.getPlayer().getLocation(), Effect.GHAST_SHRIEK, 0);
+    			for (Entity localPeeps : tnter.getNearbyEntities(32, 32, 32)) {
+    				if (localPeeps instanceof Player) {
+    					((Player) localPeeps).playEffect(tnter.getLocation(), Effect.GHAST_SHRIEK, 0);
+    				}
+    			}
+    		}
+    	}
     }
     
     // Stop sprinting
@@ -142,5 +160,15 @@ public class UHPlayerListener extends PlayerListener {
     		}
     	}
     };
+    
+    // Check for intangible blocks
+    public boolean isIntangible(Material mat) {
+    	if (mat == Material.AIR || mat == Material.SNOW || mat == Material.SIGN || mat == Material.SIGN_POST || mat == Material.PAINTING ||
+    			mat == Material.RAILS || mat == Material.POWERED_RAIL || mat == Material.PORTAL || mat == Material.ENDER_PORTAL) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
 }
 
