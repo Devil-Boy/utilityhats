@@ -96,6 +96,12 @@ public class UHPlayerListener extends PlayerListener {
     							belowBlockFrom.getBiome() == Biome.TAIGA || belowBlockFrom.getBiome() == Biome.TUNDRA)) { // unfreeze
     				belowBlockFrom .setType(Material.WATER);
     			}
+    		// Piston stuffs
+    		} else if (event.getPlayer().getInventory().getArmorContents()[3].getType() == Material.PISTON_BASE) {
+    			Block positionBlock = event.getTo().getBlock();
+    			if (positionBlock.isBlockIndirectlyPowered()) {
+    				event.getPlayer().setVelocity(event.getPlayer().getVelocity().setY(plugin.pluginSettings.pistonJumpSpeed));
+    			}
     		}
     		
     		// Movement checks

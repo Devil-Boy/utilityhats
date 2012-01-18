@@ -19,10 +19,20 @@ public class UHEntityListener extends EntityListener {
     
     // For when they should or do take damage
     public void onEntityDamage(EntityDamageEvent event) {
-    	if (plugin.debug) {
-    		System.out.println("Something is drowning!");
-    	}
+    	// Piston attack?
+		if (event instanceof EntityDamageByEntityEvent) {
+			EntityDamageByEntityEvent eT = (EntityDamageByEntityEvent) event;
+			Entity attacker = eT.getDamager();
+			if (attacker instanceof Player) { // Attacked by player!
+				Player pistonHead = (Player) attacker;
+				if (pistonHead.getInventory().getArmorContents()[3].getType() == Material.PISTON_BASE && pistonHead.getItemInHand().getType() == Material.REDSTONE_TORCH_ON) {
+					event.setCancelled(true);
+					event.getEntity().setVelocity(event.getEntity().getVelocity().setY(plugin.pluginSettings.pistonPunchSpeed));
+				}
+			}
+		}
     	
+		// Any player damages
     	if (event.getEntity() instanceof Player) { // filter out the tons of mobs first
 			Player diver = (Player) event.getEntity();
 			if (diver.getInventory().getArmorContents()[3].getType() == Material.TNT) { // Blow him up!!!!
@@ -54,6 +64,10 @@ public class UHEntityListener extends EntityListener {
 				
 				// remove hat from head
 				diver.getInventory().setHelmet(null);
+			} else if (diver.getInventory().getArmorContents()[3].getType() == Material.PISTON_BASE) { // overheated?
+				if (diver.getHealth() - event.getDamage() < 10) {
+					diver.setFireTicks(plugin.pluginSettings.pistonOverHeat);
+				}
 			} else {
 				if (event.getCause() == EntityDamageEvent.DamageCause.DROWNING) { // Stop drowning in suit and attract squids
 					if (plugin.debug) {

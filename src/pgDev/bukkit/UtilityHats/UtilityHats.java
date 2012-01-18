@@ -7,6 +7,7 @@ import java.util.Properties;
 
 import javax.swing.Timer;
 
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -134,7 +135,6 @@ public class UtilityHats extends JavaPlugin {
 				if (prospectiveHat.getType() == Material.BOOK) { // They want help
 					if (hasPermissions(player, "UtilityHats.book")) {
 						if (args.length == 0) { // Give them the list
-							player.sendMessage(ChatColor.GREEN + "Use \"/hat <hat type>\" with a book in your hand, to learn about a certain hat.");
 							LinkedList<String> availableTypes = new LinkedList<String>();
 							if (hasPermissions(player, "UtilityHats.glowstone")) {
 								availableTypes.add("glowstone");
@@ -154,6 +154,9 @@ public class UtilityHats extends JavaPlugin {
 							if (hasPermissions(player, "UtilityHats.ice")) {
 								availableTypes.add("ice");
 							}
+							if (hasPermissions(player, "UtilityHats.piston")) {
+								availableTypes.add("piston");
+							}
 							String returnList = "";
 							for (String type : availableTypes) {
 								if (returnList.equals("")) {
@@ -162,7 +165,8 @@ public class UtilityHats extends JavaPlugin {
 									returnList = returnList + ", " + type;
 								}
 							}
-							player.sendMessage(ChatColor.GREEN + "Available types: " + returnList);
+							player.sendMessage(ChatColor.DARK_GREEN + "Available types: " + returnList);
+							player.sendMessage(ChatColor.GREEN + "Use \"/hat <hat type>\" with a book in your hand, to learn about a certain hat.");
 						} else {
 							if (args[0].equalsIgnoreCase("glowstone")) {
 								player.sendMessage(ChatColor.GREEN + "Pro: Lights up the area around you");
@@ -188,6 +192,10 @@ public class UtilityHats extends JavaPlugin {
 								player.sendMessage(ChatColor.GREEN + "Pro: Water source blocks walked over temporarily turn to ice");
 								player.sendMessage(ChatColor.GREEN + "Con: Any damage melts your ice");
 								player.sendMessage(ChatColor.GREEN + "Con: Walking over oceans reduces food faster");
+							} else if (args[0].equalsIgnoreCase("piston")) {
+								player.sendMessage(ChatColor.GREEN + "Pro: With a redstone torch in hand, you can launch others upward");
+								player.sendMessage(ChatColor.GREEN + "Con: Redstone power launches you upward");
+								player.sendMessage(ChatColor.GREEN + "Con: Overheat upon dropping below half health");
 							} else {
 								player.sendMessage(ChatColor.RED + "The hat type you specified was not recognized.");
 							}
@@ -237,6 +245,19 @@ public class UtilityHats extends JavaPlugin {
 						player.sendMessage(ChatColor.GOLD + "You now have ice on your head.");
 					} else {
 						player.sendMessage(ChatColor.RED + "You do not have permissions to place ice upon your head.");
+					}
+				} else if (prospectiveHat.getType() == Material.PISTON_BASE) {
+					if (hasPermissions(player, "UtilityHats.piston")) {
+						setHandToHead(player.getInventory(), prospectiveHat);
+						player.sendMessage(ChatColor.GOLD + "You now have a piston on your head.");
+						
+						// Launch in air if necessary
+						Block positionBlock = player.getLocation().getBlock();
+		    			if (positionBlock.isBlockIndirectlyPowered()) {
+		    				player.setVelocity(player.getVelocity().setY(pluginSettings.pistonJumpSpeed));
+		    			}
+					} else {
+						player.sendMessage(ChatColor.RED + "You do not have permissions to place a piston upon your head.");
 					}
 				} else {
 					player.sendMessage(ChatColor.RED + "That block is not to be used as a hat.");

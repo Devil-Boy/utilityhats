@@ -16,3 +16,18 @@ tntRadius=5
 #	You can set the light level of the glowstone on people's
 #	heads. 15 is known to be the maximum.
 glowPower=15
+
+# Piston Punch Launch Speed
+#	The speed at which entities are launched upwards by piston
+#	hat wearers when they punch mobs/players. (Can have decimals)
+pistonPunchSpeed=1
+
+# Piston Jump Launch Speed
+#	The speed at which players wearing pistons jump upwards
+#	when powered by redstone. (Can have decimals)
+pistonJumpSpeed=1
+
+# Piston OverHeat Duration
+#	This is the length of time (in ticks) for which players
+#	will be set to fire for overheating.
+pistonOverHeat=24

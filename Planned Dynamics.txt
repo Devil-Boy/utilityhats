@@ -30,3 +30,8 @@ Ice:
 	-Pro: Water source blocks walked over temporarily turn to ice
 	-Con: Any damage melts your ice
 	-Con: Walking over oceans reduces food faster
+
+Piston:
+	-Pro: With a redstone torch in hand, you can launch others upward
+	-Con: Redstone power launches you upward
+	-Con: Overheat upon dropping below half health

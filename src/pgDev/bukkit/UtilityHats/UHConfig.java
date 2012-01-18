@@ -23,6 +23,9 @@ public class UHConfig {
 	int glowHeadAlert = 6;
 	int tntRadius = 5;
 	int glowPower = 15;
+	Double pistonPunchSpeed = 1d;
+	Double pistonJumpSpeed = 1d;
+	int pistonOverHeat = 24;
 	
 	public UHConfig(Properties p, final UtilityHats plugin) {
         properties = p;
@@ -32,6 +35,9 @@ public class UHConfig {
         glowHeadAlert = getInt("glowHeadAlert", 6);
         tntRadius = getInt("tntRadius", 5);
         glowPower = getInt("glowPower", 15);
+        pistonPunchSpeed = getDouble("pistonPunchSpeed", 1d);
+        pistonJumpSpeed = getDouble("pistonJumpSpeed", 1d);
+        pistonOverHeat = getInt("pistonOverHeat", 24);
         
 	}
 	
@@ -46,9 +52,14 @@ public class UHConfig {
         }
     }
     
-    public double getDouble(String label) throws NoSuchElementException {
-        String value = getString(label);
-        return Double.parseDouble(value);
+    public double getDouble(String label, Double thedefault) {
+        String value;
+        try {
+        	value = getString(label);
+        	return Double.parseDouble(value);
+        } catch (NoSuchElementException e) {
+        	return thedefault;
+        }
     }
     
     public File getFile(String label) throws NoSuchElementException {
@@ -165,6 +176,21 @@ public class UHConfig {
     		out.write("#	You can set the light level of the glowstone on people's\r\n");
     		out.write("#	heads. 15 is known to be the maximum.\r\n");
     		out.write("glowPower=" + glowPower + "\r\n");
+    		out.write("\r\n");
+    		out.write("# Piston Punch Launch Speed\r\n");
+    		out.write("#	The speed at which entities are launched upwards by piston\r\n");
+    		out.write("#	hat wearers when they punch mobs/players. (Can have decimals)\r\n");
+    		out.write("pistonPunchSpeed=" + pistonPunchSpeed + "\r\n");
+    		out.write("\r\n");
+    		out.write("# Piston Jump Launch Speed\r\n");
+    		out.write("#	The speed at which players wearing pistons jump upwards\r\n");
+    		out.write("#	when powered by redstone. (Can have decimals)\r\n");
+    		out.write("pistonJumpSpeed=" + pistonJumpSpeed + "\r\n");
+    		out.write("\r\n");
+    		out.write("# Piston OverHeat Duration\r\n");
+    		out.write("#	This is the length of time (in ticks) for which players\r\n");
+    		out.write("#	will be set to fire for overheating.\r\n");
+    		out.write("pistonOverHeat=" + pistonOverHeat + "\r\n");
     		out.close();
     	} catch (Exception e) {
     		System.out.println(e);
