@@ -68,7 +68,7 @@ public class UHPlayerListener extends PlayerListener {
     			event.getPlayer().setFoodLevel(0);
         		
         		// remove from database
-        		lightHeads.remove(event.getPlayer().getName());
+        		tntHeads.remove(event.getPlayer().getName());
         	}
     		
     		// Ice Stuff	
