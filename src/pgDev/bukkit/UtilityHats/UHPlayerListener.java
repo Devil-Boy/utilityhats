@@ -137,12 +137,7 @@ public class UHPlayerListener extends PlayerListener {
     		Player tnter = event.getPlayer();
     		if (tnter.getInventory().getArmorContents()[3].getType() == Material.TNT) {
     			event.setCancelled(true);
-    			tnter.playEffect(event.getPlayer().getLocation(), Effect.GHAST_SHRIEK, 0);
-    			for (Entity localPeeps : tnter.getNearbyEntities(32, 32, 32)) {
-    				if (localPeeps instanceof Player) {
-    					((Player) localPeeps).playEffect(tnter.getLocation(), Effect.GHAST_SHRIEK, 0);
-    				}
-    			}
+    			tnter.getWorld().playEffect(event.getPlayer().getLocation(), Effect.GHAST_SHRIEK, 0);
     		}
     	}
     }

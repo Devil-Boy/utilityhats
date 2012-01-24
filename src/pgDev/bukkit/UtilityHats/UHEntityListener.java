@@ -55,12 +55,7 @@ public class UHEntityListener extends EntityListener {
 				vapors.start();
 				
 				// play break sound
-				diver.playEffect(diver.getLocation(), Effect.POTION_BREAK, 0);
-    			for (Entity localPeeps : diver.getNearbyEntities(32, 32, 32)) {
-    				if (localPeeps instanceof Player) {
-    					((Player) localPeeps).playEffect(diver.getLocation(), Effect.POTION_BREAK, 0);
-    				}
-    			}
+				diver.getWorld().playEffect(diver.getLocation(), Effect.POTION_BREAK, 0);
 				
 				// remove hat from head
 				diver.getInventory().setHelmet(null);
@@ -98,12 +93,7 @@ public class UHEntityListener extends EntityListener {
 		    	} else if (event.getCause() == EntityDamageEvent.DamageCause.CONTACT || event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK || event.getCause() == EntityDamageEvent.DamageCause.ENTITY_EXPLOSION || event.getCause() == EntityDamageEvent.DamageCause.PROJECTILE) { // Likely taken from a monster
 		    		if (diver.getInventory().getArmorContents()[3].getType() == Material.GLASS) { // break his glasses!
 		    			diver.setRemainingAir(diver.getMaximumAir());
-		    			diver.playEffect(diver.getLocation(), Effect.POTION_BREAK, 0);
-		    			for (Entity localPeeps : diver.getNearbyEntities(32, 32, 32)) {
-		    				if (localPeeps instanceof Player) {
-		    					((Player) localPeeps).playEffect(diver.getLocation(), Effect.POTION_BREAK, 0);
-		    				}
-		    			}
+		    			diver.getWorld().playEffect(diver.getLocation(), Effect.POTION_BREAK, 0);
 		    			diver.getInventory().setHelmet(null);
 		    		} else if (diver.getInventory().getArmorContents()[3].getType() == Material.MOB_SPAWNER) { // toughen up? or beat down?
 		    			if (event instanceof EntityDamageByEntityEvent) { // He was attackedQ!
