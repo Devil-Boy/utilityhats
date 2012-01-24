@@ -30,7 +30,7 @@ import com.nijikokun.bukkit.Permissions.Permissions;
  * @author PG Dev Team (Devil Boy)
  */
 public class UtilityHats extends JavaPlugin {
-	// Debugh mode
+	// Debug mode
 	public boolean debug = false;
 	
 	// Plugin Configuration
