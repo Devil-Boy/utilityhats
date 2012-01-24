@@ -35,3 +35,7 @@ Piston:
 	-Pro: With a redstone torch in hand, you can launch others upward
 	-Con: Redstone power launches you upward
 	-Con: Overheat upon dropping below half health
+
+Snow:
+	-Pro: Negates fall damage
+	-Con: One time use

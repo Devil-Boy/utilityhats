@@ -157,6 +157,9 @@ public class UtilityHats extends JavaPlugin {
 							if (hasPermissions(player, "UtilityHats.piston")) {
 								availableTypes.add("piston");
 							}
+							if (hasPermissions(player, "UtilityHats.snow")) {
+								availableTypes.add("snow");
+							}
 							String returnList = "";
 							for (String type : availableTypes) {
 								if (returnList.equals("")) {
@@ -196,6 +199,9 @@ public class UtilityHats extends JavaPlugin {
 								player.sendMessage(ChatColor.GREEN + "Pro: With a redstone torch in hand, you can launch others upward");
 								player.sendMessage(ChatColor.GREEN + "Con: Redstone power launches you upward");
 								player.sendMessage(ChatColor.GREEN + "Con: Overheat upon dropping below half health");
+							} else if (args[0].equalsIgnoreCase("snow")) {
+								player.sendMessage(ChatColor.GREEN + "Pro: Negates fall damage");
+								player.sendMessage(ChatColor.GREEN + "Con: One time use");
 							} else {
 								player.sendMessage(ChatColor.RED + "The hat type you specified was not recognized.");
 							}
@@ -258,6 +264,13 @@ public class UtilityHats extends JavaPlugin {
 		    			}
 					} else {
 						player.sendMessage(ChatColor.RED + "You do not have permissions to place a piston upon your head.");
+					}
+				} else if (prospectiveHat.getType() == Material.SNOW_BLOCK) {
+					if (hasPermissions(player, "UtilityHats.snow")) {
+						setHandToHead(player.getInventory(), prospectiveHat);
+						player.sendMessage(ChatColor.GOLD + "You now have a snow block on your head.");
+					} else {
+						player.sendMessage(ChatColor.RED + "You do not have permissions to place a snow block upon your head.");
 					}
 				} else {
 					player.sendMessage(ChatColor.RED + "That block is not to be used as a hat.");

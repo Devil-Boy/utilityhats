@@ -117,6 +117,9 @@ public class UHEntityListener extends EntityListener {
 		    	} else if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
 		    		if (diver.getInventory().getArmorContents()[3].getType() == Material.OBSIDIAN) { // heavy fall :O
 		    			event.setDamage(event.getDamage() * 2);
+		    		} else if (diver.getInventory().getArmorContents()[3].getType() == Material.SNOW_BLOCK) { // soft fall :)
+		    			event.setCancelled(true);
+		    			// continue here
 		    		}
 		    	}
 			}

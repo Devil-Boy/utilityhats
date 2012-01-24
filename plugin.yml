@@ -44,3 +44,6 @@ permissions:
     UtilityHats.piston:
         default: true
         description: Can wear piston on head.
+    UtilityHats.snow:
+        default: true
+        description: Can wear snow on head.
