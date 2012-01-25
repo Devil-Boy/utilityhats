@@ -119,7 +119,8 @@ public class UHEntityListener extends EntityListener {
 		    			event.setDamage(event.getDamage() * 2);
 		    		} else if (diver.getInventory().getArmorContents()[3].getType() == Material.SNOW_BLOCK) { // soft fall :)
 		    			event.setCancelled(true);
-		    			// continue here
+		    			diver.getWorld().playEffect(diver.getLocation(), Effect.ENDER_SIGNAL, 0);
+		    			diver.getInventory().setHelmet(null);
 		    		}
 		    	}
 			}
