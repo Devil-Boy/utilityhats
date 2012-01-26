@@ -7,10 +7,11 @@ import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.entity.*;
+import org.bukkit.event.*;
 import org.bukkit.event.entity.*;
 import org.bukkit.inventory.ItemStack;
 
-public class UHEntityListener extends EntityListener {
+public class UHEntityListener implements Listener {
 	private final UtilityHats plugin;
 
     public UHEntityListener(UtilityHats instance) {
@@ -18,6 +19,7 @@ public class UHEntityListener extends EntityListener {
     }
     
     // For when they should or do take damage
+    @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
     	// Piston attack?
 		if (event instanceof EntityDamageByEntityEvent) {
@@ -128,6 +130,7 @@ public class UHEntityListener extends EntityListener {
     }
     
     // Don't let squids drop ink when near a diver
+    @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
     	if (event.getEntity() instanceof Squid) {
     		Player hunter = ((Squid) event.getEntity()).getKiller();
@@ -141,6 +144,7 @@ public class UHEntityListener extends EntityListener {
     }
     
     // Increase hunger speed thing for the fish-bowl heads
+    @EventHandler
     public void onFoodLevelChange(FoodLevelChangeEvent event) {
     	if (event.getEntity() instanceof Player) {
     		Player player = (Player) event.getEntity();

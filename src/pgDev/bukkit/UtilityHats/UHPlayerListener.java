@@ -10,6 +10,7 @@ import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
+import org.bukkit.event.*;
 import org.bukkit.event.player.*;
 
 import org.bukkit.block.Biome;
@@ -21,7 +22,7 @@ import org.bukkit.craftbukkit.CraftWorld;
  * Handle events for all Player related events
  * @author PG Dev Team (Devil Boy)
  */
-public class UHPlayerListener extends PlayerListener {
+public class UHPlayerListener implements Listener {
     private final UtilityHats plugin;
     
     LinkedList<String> lightHeads = new LinkedList<String>();
@@ -32,6 +33,7 @@ public class UHPlayerListener extends PlayerListener {
         plugin = instance;
     }
     
+    @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
     	if (!event.getFrom().getBlock().getLocation().equals(event.getTo().getBlock().getLocation())) {
     		// Glow stuff
@@ -111,6 +113,7 @@ public class UHPlayerListener extends PlayerListener {
     	}
     }
     
+    @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
     	if (event.getPlayer().getInventory().getArmorContents()[3].getType() == Material.GLOWSTONE) { // light the way!
     		makeNewLight(event.getPlayer().getLocation());
@@ -122,6 +125,7 @@ public class UHPlayerListener extends PlayerListener {
     	}
     }
     
+    @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
     	if (lightHeads.contains(event.getPlayer().getName())) {
 			// first remove any old light area
@@ -132,6 +136,7 @@ public class UHPlayerListener extends PlayerListener {
 		}
     }
     
+    @EventHandler
     public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
     	if (event.isSneaking()) {
     		Player tnter = event.getPlayer();

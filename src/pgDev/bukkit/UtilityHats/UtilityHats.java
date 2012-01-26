@@ -79,15 +79,8 @@ public class UtilityHats extends JavaPlugin {
 		
         // Register our events
         PluginManager pm = getServer().getPluginManager();
-        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Priority.Normal, this); // Anti-drown, attract squid
-        pm.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Priority.Normal, this); // Squid no-drop
-        pm.registerEvent(Event.Type.FOOD_LEVEL_CHANGE, entityListener, Priority.Normal, this); // Squid no-drop
-        
-        pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Priority.Normal, this); // Glowstone light
-        pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Priority.Normal, this); // Glow on join
-        pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Priority.Normal, this); // Unglow on leave
-        //pm.registerEvent(Event.Type.PLAYER_TOGGLE_SPRINT, playerListener, Priority.Normal, this); // Anti-sprint (does not work)
-        pm.registerEvent(Event.Type.PLAYER_TOGGLE_SNEAK, playerListener, Priority.Normal, this); // Scream on sneak
+        pm.registerEvents(entityListener, this);
+        pm.registerEvents(playerListener, this);
         
         // Get permissions involved!
         setupPermissions();
