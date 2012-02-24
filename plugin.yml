@@ -1,6 +1,6 @@
 name: UtilityHats
 main: pgDev.bukkit.UtilityHats.UtilityHats
-version: 0.9
+version: 0.9.1
 author: PG Dev Team
 authors: [Devil Boy]
 description: More hats, more dynamics!
@@ -17,7 +17,7 @@ commands:
       usage: /<command>
 
 permissions:
-    UtilityHats.*:
+    utilityhats.*:
         default: op
         description: Can use any hat.
         children:
@@ -26,24 +26,24 @@ permissions:
             UtilityHats.glass: true
             UtilityHats.spawner: true
             UtilityHats.obsidian: true
-    UtilityHats.book:
+    utilityhats.book:
         default: true
         description: Can receive the help output.
-    UtilityHats.glowstone:
+    utilityhats.glowstone:
         default: true
         description: Can wear glowstone on head.
-    UtilityHats.glass:
+    utilityhats.glass:
         default: true
         description: Can wear glass on head.
-    UtilityHats.spawner:
+    utilityhats.spawner:
         default: true
         description: Can wear a spawner on head.
-    UtilityHats.obsidian:
+    utilityhats.obsidian:
         default: true
         description: Can wear obsidian on head.
-    UtilityHats.piston:
+    utilityhats.piston:
         default: true
         description: Can wear piston on head.
-    UtilityHats.snow:
+    utilityhats.snow:
         default: true
         description: Can wear snow on head.
