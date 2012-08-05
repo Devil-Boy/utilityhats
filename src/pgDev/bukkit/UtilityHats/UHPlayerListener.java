@@ -168,7 +168,7 @@ public class UHPlayerListener implements Listener {
     
     public void makeNewLight(Location newL) {
     	CraftWorld hackyWorld = (CraftWorld) newL.getWorld();
-		hackyWorld.getHandle().a(EnumSkyBlock.BLOCK, newL.getBlockX(), newL.getBlockY() + 2, newL.getBlockZ(), plugin.pluginSettings.glowPower);
+		hackyWorld.getHandle().b(EnumSkyBlock.BLOCK, newL.getBlockX(), newL.getBlockY() + 2, newL.getBlockZ(), plugin.pluginSettings.glowPower);
 		Location newLightOrigin = new Location (hackyWorld, newL.getBlockX(), newL.getBlockY() + 1, newL.getBlockZ());
 		newLightOrigin.getBlock().setType(newLightOrigin.getBlock().getType());
     }
