@@ -4,11 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
-import net.minecraft.server.EnumSkyBlock;
+import net.minecraft.server.Packet53BlockChange;
 
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.*;
 import org.bukkit.event.*;
 import org.bukkit.event.player.*;
@@ -17,6 +18,7 @@ import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 
 /**
  * Handle events for all Player related events
@@ -162,15 +164,35 @@ public class UHPlayerListener implements Listener {
     
     // Glow functions
     public void removeOldLight(Location oldL) {
+    	for (Player player : oldL.getWorld().getPlayers()) {
+    		Packet53BlockChange packet = new Packet53BlockChange(oldL.getBlockX(), oldL.getBlockY() - 1, oldL.getBlockZ(), ((CraftWorld) oldL.getWorld()).getHandle());
+    		((CraftPlayer) player).getHandle().netServerHandler.sendPacket(packet);
+    	}
+    	
+    	/*
     	Location oldLightOrigin = new Location (((CraftWorld) oldL.getWorld()), oldL.getBlockX(), oldL.getBlockY() + 2, oldL.getBlockZ());
-		oldLightOrigin.getBlock().setType(oldLightOrigin.getBlock().getType());
+		oldLightOrigin.getBlock().setType(oldLightOrigin.getBlock().getType());*/
     }
     
     public void makeNewLight(Location newL) {
+    	World world = newL.getWorld();
+    	if (world.getBlockAt(newL).getRelative(BlockFace.DOWN).getTypeId() != 0) {
+    		for (Player player : newL.getWorld().getPlayers()) {
+        		Packet53BlockChange packet = new Packet53BlockChange();
+        		packet.a = newL.getBlockX();
+        		packet.b = newL.getBlockY() - 1;
+        		packet.c = newL.getBlockZ();
+        		packet.material = 89;
+        		packet.data = 0;
+        		((CraftPlayer) player).getHandle().netServerHandler.sendPacket(packet);
+        	}
+    	}
+    	
+    	/*
     	CraftWorld hackyWorld = (CraftWorld) newL.getWorld();
 		hackyWorld.getHandle().b(EnumSkyBlock.BLOCK, newL.getBlockX(), newL.getBlockY() + 2, newL.getBlockZ(), plugin.pluginSettings.glowPower);
 		Location newLightOrigin = new Location (hackyWorld, newL.getBlockX(), newL.getBlockY() + 1, newL.getBlockZ());
-		newLightOrigin.getBlock().setType(newLightOrigin.getBlock().getType());
+		newLightOrigin.getBlock().setType(newLightOrigin.getBlock().getType());*/
     }
     
     // Mob attack

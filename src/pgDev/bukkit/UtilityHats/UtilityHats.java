@@ -204,6 +204,7 @@ public class UtilityHats extends JavaPlugin {
 				} else if (prospectiveHat.getType() == Material.GLOWSTONE) {
 					if (hasPermissions(player, "UtilityHats.glowstone")) {
 						setHandToHead(player.getInventory(), prospectiveHat);
+						playerListener.makeNewLight(player.getLocation());
 						player.sendMessage(ChatColor.GOLD + "You now have glowstone on your head.");
 					} else {
 						player.sendMessage(ChatColor.RED + "You do not have permissions to place glowstone upon your head.");
